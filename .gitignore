@@ -1,0 +1,7 @@
+# TODO: remove and clean up files/dirs
+
+*.env
+*.ipynb
+nginx_json_logs
+/docs/
+requirements.txt
