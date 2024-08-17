@@ -30,10 +30,10 @@ def download_logs():
     return url
 
 # Push the records to a Kafka topic
-def push_update_to_kafka(key, record, topic):
+def push_update_to_kafka(record, topic):
     producer.produce(
         topic=topic,
-        key=key,
+        key=None,
         value=record,
         timestamp=3,
         on_delivery=delivery_report,
@@ -48,7 +48,7 @@ def gen_log_stream():
             log = json.loads(line)
             entity = json.dumps(log).encode('utf-8')
             time.sleep(15) # for development
-            push_update_to_kafka('a', entity, 'nginx_access_logs')
+            push_update_to_kafka(entity, 'nginx_access_logs')
         except TypeError:
             return
 
