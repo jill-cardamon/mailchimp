@@ -27,6 +27,7 @@ services:
       start_period: 30s
 
   kafka-exporter:
+    container_name: kafka-exporter
     image: docker.io/bitnami/kafka-exporter:latest
     depends_on:
       kafka:
@@ -35,29 +36,32 @@ services:
 
   producer:
     image: mailchimp-producer:latest
+    container_name: producer
     command: python /opt/producer/logs_producer.py
     volumes:
       - ./producer:/opt/producer
-    container_name: producer
     restart: on-failure
     depends_on:
       - kafka
 
   logstash:
     image: mailchimp-logstash:latest
+    container_name: logstash
     volumes:
       - "./logstash:/usr/share/logstash/pipeline"
     environment:
       - "LS_JAVA_OPTS=-Xmx256m -Xms256m"
       - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${OPENSEARCH_INITIAL_ADMIN_PASSWORD}
+      - API_HTTP_PORT=9675 # assign API HTTP port for metrics to avoid conflict with default port (9600)
+    ports:
+      - "9675:9675"
     depends_on:
       - opensearch-node1
       - opensearch-node2
       - kafka
    
   opensearch-node1:
-    build:
-      context: ./container/opensearch
+    image: mailchimp-opensearch-node1:latest
     container_name: opensearch-node1
     environment:
       - cluster.name=opensearch-cluster
@@ -83,8 +87,7 @@ services:
       - 9600:9600 # Performance Analyzer
 
   opensearch-node2:
-    build:
-      context: ./container/opensearch # This should be the same image used for opensearch-node1 to avoid issues
+    image: mailchimp-opensearch-node1:latest # This should be the same image used for opensearch-node1 to avoid issues
     container_name: opensearch-node2
     environment:
       - cluster.name=opensearch-cluster
@@ -116,6 +119,14 @@ services:
     environment:
       - 'OPENSEARCH_HOSTS=["http://opensearch-node1:9200","http://opensearch-node2:9200"]' # Define the OpenSearch nodes that OpenSearch Dashboards will query
       - "DISABLE_SECURITY_DASHBOARDS_PLUGIN=true" # disables security dashboards plugin in OpenSearch Dashboards
+
+  json-exporter:
+    image: prometheuscommunity/json-exporter:latest
+    container_name: json_exporter
+    volumes:
+      - ./metrics/config.yml:/config.yml:ro
+    ports:
+      - "7979:7979"
 
   prometheus:
     image: prom/prometheus:v2.37.1

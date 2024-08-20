@@ -3,7 +3,7 @@ global:
 
 scrape_configs:
   - job_name: opensearch
-    scrape_interval: 10s
+    scrape_interval: 15s
     metrics_path: "/_prometheus/metrics"
     static_configs:
     - targets:
@@ -20,7 +20,6 @@ scrape_configs:
       - kafka-exporter:9308
 
   - job_name: jmx-exporter
-    honor_timestamps: true
     scrape_interval: 15s
     scrape_timeout: 10s
     metrics_path: /metrics
@@ -28,3 +27,18 @@ scrape_configs:
     static_configs:
     - targets:
       - kafka:9404
+  
+  - job_name: logstash-json-exporter
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    metrics_path: /probe
+    static_configs:
+      - targets:
+          - http://logstash:9675/_node/stats/jvm
+    relabel_configs:
+    - source_labels: [__address__]
+      target_label: __param_target
+    - source_labels: [__param_target]
+      target_label: instance
+    - target_label: __address__
+      replacement: json_exporter:7979

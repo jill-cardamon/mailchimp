@@ -1,0 +1,43 @@
+modules:
+  default:
+    metrics:
+    - name: logstash_pipeline_workers
+      path: "{$.pipeline.workers}"
+      type: value
+      help: Pipeline workers
+    - name: logstash_pipeline_batch_size
+      path: "{$.pipeline.batch_size}"
+      type: value
+      help: Pipeline batch size
+    - name: logstash_pipeline_batch_delay
+      path: "{$.pipeline.batch_delay}"
+      type: value
+      help: Pipeline batch delay
+    - name: logstash_jvm_threads_count
+      path: "{$.jvm.threads.count}"
+      type: value
+      help: JVM threads count
+    - name: logstash_jvm_threads_peak_count
+      path: "{$.jvm.threads.peak_count}"
+      type: value
+      help: JVM threads peak count
+    - name: logstash_jvm_mem_heap_used_percent
+      path: "{$.jvm.mem.heap_used_percent}"
+      type: value
+      help: JVM mem heap used percent
+    - name: logstash_jvm_mem_heap_committed_in_bytes
+      path: "{$.jvm.mem.heap_committed_in_bytes}"
+      type: value
+      help: JVM mem heap committed in bytes
+    - name: logstash_jvm_mem_heap_max_in_bytes
+      path: "{$.jvm.mem.heap_max_in_bytes}"
+      type: value
+      help: JVM mem heap max in bytes
+    - name: logstash_jvm_mem_heap_used_in_bytes
+      path: "{$.jvm.mem.heap_used_in_bytes}"
+      type: value
+      help: JVM mem heap used in bytes
+    - name: logstash_jvm_uptime_in_millis
+      path: "{$.jvm.uptime_in_millis}"
+      type: value
+      help: JVM uptime in millis
