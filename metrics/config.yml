@@ -1,6 +1,7 @@
 modules:
   default:
     metrics:
+    # Pipeline
     - name: logstash_pipeline_workers
       path: "{$.pipeline.workers}"
       type: value
@@ -13,6 +14,8 @@ modules:
       path: "{$.pipeline.batch_delay}"
       type: value
       help: Pipeline batch delay
+    
+    # Threads
     - name: logstash_jvm_threads_count
       path: "{$.jvm.threads.count}"
       type: value
@@ -21,6 +24,8 @@ modules:
       path: "{$.jvm.threads.peak_count}"
       type: value
       help: JVM threads peak count
+    
+    # JVM Mem
     - name: logstash_jvm_mem_heap_used_percent
       path: "{$.jvm.mem.heap_used_percent}"
       type: value
@@ -41,3 +46,190 @@ modules:
       path: "{$.jvm.uptime_in_millis}"
       type: value
       help: JVM uptime in millis
+
+    # JVM Pool (old)
+    - name: logstash_pools_old_committed_in_bytes
+      path: "{$.jvm.mem.pools.old.committed_in_bytes}"
+      type: value
+      help: JVM pools old committed in bytes
+    - name: logstash_pools_old_peak_used_in_bytes
+      path: "{$.jvm.mem.pools.old.peak_used_in_bytes}"
+      type: value
+      help: JVM pools old peak used in bytes
+    - name: logstash_pools_old_peak_max_in_bytes
+      path: "{$.jvm.mem.pools.old.peak_max_in_bytes}"
+      type: value
+      help: JVM pools old peak max in bytes
+    - name: logstash_pools_old_max_in_bytes
+      path: "{$.jvm.mem.pools.old.max_in_bytes}"
+      type: value
+      help: JVM pools old max in bytes
+    - name: logstash_pools_old_used_in_bytes
+      path: "{$.jvm.mem.pools.old.used_in_bytes}"
+      type: value
+      help: JVM pools old used in bytes
+
+    # JVM Pool (survivor)
+    - name: logstash_pools_survivor_committed_in_bytes
+      path: "{$.jvm.mem.pools.survivor.committed_in_bytes}"
+      type: value
+      help: JVM pools survivor committed in bytes
+    - name: logstash_pools_survivor_peak_used_in_bytes
+      path: "{$.jvm.mem.pools.survivor.peak_used_in_bytes}"
+      type: value
+      help: JVM pools survivor peak used in bytes
+    - name: logstash_pools_survivor_peak_max_in_bytes
+      path: "{$.jvm.mem.pools.survivor.peak_max_in_bytes}"
+      type: value
+      help: JVM pools survivor peak max in bytes
+    - name: logstash_pools_survivor_max_in_bytes
+      path: "{$.jvm.mem.pools.survivor.max_in_bytes}"
+      type: value
+      help: JVM pools survivor max in bytes
+    - name: logstash_pools_survivor_used_in_bytes
+      path: "{$.jvm.mem.pools.survivor.used_in_bytes}"
+      type: value
+      help: JVM pools survivor used in bytes
+
+    # JVM Pool (young)
+    - name: logstash_pools_young_committed_in_bytes
+      path: "{$.jvm.mem.pools.young.committed_in_bytes}"
+      type: value
+      help: JVM pools young committed in bytes
+    - name: logstash_pools_young_peak_used_in_bytes
+      path: "{$.jvm.mem.pools.young.peak_used_in_bytes}"
+      type: value
+      help: JVM pools young peak used in bytes
+    - name: logstash_pools_young_peak_max_in_bytes
+      path: "{$.jvm.mem.pools.young.peak_max_in_bytes}"
+      type: value
+      help: JVM pools young peak max in bytes
+    - name: logstash_pools_young_max_in_bytes
+      path: "{$.jvm.mem.pools.young.max_in_bytes}"
+      type: value
+      help: JVM pools young max in bytes
+    - name: logstash_pools_young_used_in_bytes
+      path: "{$.jvm.mem.pools.young.used_in_bytes}"
+      type: value
+      help: JVM pools young used in bytes
+
+    # JVM GC
+    - name: logstash_gc_young_collection_count
+      path: "{$.jvm.gc.collectors.young.collection_count}"
+      type: value
+      help: JVM gc young collector collection count
+    - name: logstash_gc_young_collection_time
+      path: "{$.jvm.gc.collectors.young.collection_time_in_millis}"
+      type: value
+      help: JVM gc young collector collection time (in millis)
+    - name: logstash_gc_old_collection_count
+      path: "{$.jvm.gc.collectors.old.collection_count}"
+      type: value
+      help: JVM gc old collector collection count
+    - name: logstash_gc_old_collection_time
+      path: "{$.jvm.gc.collectors.old.collection_time_in_millis}"
+      type: value
+      help: JVM gc old collector collection time (in millis)
+
+    # Process
+    - name: logstash_process_open_file_descriptors
+      path: "{$.process.open_file_descriptors}"
+      type: value
+      help: Process open file descriptors
+    - name: logstash_process_max_file_descriptors
+      path: "{$.process.max_file_descriptors}"
+      type: value
+      help: Process max file descriptors
+    - name: logstash_process_peak_open_file_descriptors
+      path: "{$.process.peak_open_file_descriptors}"
+      type: value
+      help: Process peak open file descriptors
+    - name: logstash_process_mem_total_virtual_in_bytes
+      path: "{$.process.mem.total_virtual_in_bytes}"
+      type: value
+      help: Process mem total virtual in bytes
+    - name: logstash_process_cpu_total_in_millis
+      path: "{$.process.cpu.total_in_millis}"
+      type: value
+      help: Process cpu total (in millis)
+
+    # Events
+    - name: logstash_events_in
+      path: "{$.pipelines.main.events.in}"
+      type: value
+      help: Events in
+    - name: logstash_events_filtered
+      path: "{$.pipelines.main.events.filtered}"
+      type: value
+      help: Events filtered
+    - name: logstash_events_out
+      path: "{$.pipelines.main.events.out}"
+      type: value
+      help: Events out
+    - name: logstash_events_duration_in_millis
+      path: "{$.pipelines.main.events.duration_in_millis}"
+      type: value
+      help: Events duration (in millis)
+    - name: logstash_queue_push_duration_in_millis
+      path: "{$.pipelines.main.events.queue_push_duration_in_millis}"
+      type: value
+      help: Queue push duration (in millis)
+
+    # Reloads
+    - name: logstash_reloads_failures
+      path: "{$.reloads.failures}"
+      type: value
+      help: Reloads failures
+    - name: logstash_reloads_successes
+      path: "{$.reloads.successes}"
+      type: value
+      help: Reloads successes
+
+    # Flow
+    - name: logstash_flow_input_throughput_current
+      path: "{$.flow.input_throughput.current}"
+      type: value
+      help: Flow input throughput current
+    - name: logstash_flow_input_throughput_lifetime
+      path: "{$.flow.input_throughput.lifetime}"
+      type: value
+      help: Flow input throughput lifetime
+    - name: logstash_flow_filter_throughput_current
+      path: "{$.flow.filter_throughput.current}"
+      type: value
+      help: Flow filter throughput current
+    - name: logstash_flow_filter_throughput_lifetime
+      path: "{$.flow.filter_throughput.lifetime}"
+      type: value
+      help: Flow filter throughput lifetime  
+    - name: logstash_flow_output_throughput_current
+      path: "{$.flow.output_throughput.current}"
+      type: value
+      help: Flow output throughput current
+    - name: logstash_flow_output_throughput_lifetime
+      path: "{$.flow.output_throughput.lifetime}"
+      type: value
+      help: Flow output throughput lifetime  
+
+    # Queue and Queue Backpressure
+    - name: logstash_queue_events_count
+      path: "{$.pipelines.main.queue.events_count}"
+      type: value
+      help: Queue events count
+    - name: logstash_queue_queue_size_in_bytes
+      path: "{$.pipelines.main.queue.queue_size_in_bytes}"
+      type: value
+      help: Queue queue size in bytes
+    - name: logstash_queue_max_queue_size_in_bytes
+      path: "{$.pipelines.main.queue.max_queue_size_in_bytes}"
+      type: value
+      help: Queue max queue size in bytes
+    - name: logstash_flow_queue_backpressure_current
+      path: "{$.flow.queue_backpressure.current}"
+      type: value
+      help: Flow queue backpressure current
+    - name: logstash_flow_queue_backpressure_current_lifetime
+      path: "{$.flow.queue_backpressure.lifetime}"
+      type: value
+      help: Flow queue backpressure lifetime
+      

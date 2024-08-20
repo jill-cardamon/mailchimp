@@ -34,7 +34,7 @@ scrape_configs:
     metrics_path: /probe
     static_configs:
       - targets:
-          - http://logstash:9675/_node/stats/jvm
+          - http://logstash:9675/_node/stats/
     relabel_configs:
     - source_labels: [__address__]
       target_label: __param_target
