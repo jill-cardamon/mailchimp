@@ -26,8 +26,7 @@ services:
       - zookeeper
 
   producer:
-    build:
-      context: ./container/producer/
+    image: mailchimp-producer:latest
     command: python /opt/producer/logs_producer.py
     volumes:
       - ./producer:/opt/producer
@@ -37,8 +36,7 @@ services:
       - kafka
 
   logstash:
-    build:
-      context: ./container/logstash/
+    image: mailchimp-logstash:latest
     volumes:
       - "./logstash:/usr/share/logstash/pipeline"
     environment:
