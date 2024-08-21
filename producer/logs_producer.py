@@ -1,4 +1,3 @@
-import time
 import json
 import urllib.request
 from confluent_kafka import Producer
@@ -47,8 +46,7 @@ def gen_log_stream():
         try:
             log = json.loads(line)
             entity = json.dumps(log).encode('utf-8')
-            time.sleep(15) # for development
-            push_update_to_kafka(entity, 'nginx_access_logs')
+            push_update_to_kafka(entity, 'nginx')
         except TypeError:
             return
 
