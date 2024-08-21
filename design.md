@@ -13,6 +13,8 @@ Objectives
 
 ## Architecture
 
+![pipeline architecture](mailchimp.jpg "Architecture Diagram")
+
 ### High-Level Architecture and Data Flow
 
 Our pipeline architecture is as follows (from left to right):
@@ -25,9 +27,6 @@ Our pipeline architecture is as follows (from left to right):
 * Monitoring: Metrics are pulled by Prometheus and visualized using Grafana.
   * Kafka exporter and JVM exporter are used to collect Kafka metrics.
   * JSON exporter is used to collect Logstash metrics for Prometheus to scrape.
-
-### Component Considerations
-
 
 
 ### Data Ingestion
