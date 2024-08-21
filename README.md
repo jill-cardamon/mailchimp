@@ -29,6 +29,12 @@ git clone https://github.com/jill-cardamon/mailchimp.git
 cd mailchimp
 ```
 
+If using a public assess token, use:
+```bash
+git clone https://<username>:<token>@github.com/jill-cardamon/mailchimp.gitcd mailchimp
+cd mailchimp
+```
+
 Create an `.env` file in the root of this project to store the following credentials:
 
 ```
