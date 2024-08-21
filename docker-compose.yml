@@ -35,7 +35,8 @@ services:
     command: --kafka.server=kafka:9092
 
   producer:
-    image: mailchimp-producer:latest
+    build:
+      context: ./container/producer/
     container_name: producer
     command: python /opt/producer/logs_producer.py
     volumes:
@@ -45,7 +46,8 @@ services:
       - kafka
 
   logstash:
-    image: mailchimp-logstash:latest
+    build:
+      context: ./container/logstash/
     container_name: logstash
     volumes:
       - "./logstash:/usr/share/logstash/pipeline"
@@ -63,7 +65,8 @@ services:
       - kafka
    
   opensearch-node1:
-    image: mailchimp-opensearch-node1:latest
+    build:
+      context: ./container/opensearch
     container_name: opensearch-node1
     environment:
       - cluster.name=opensearch-cluster
@@ -89,7 +92,8 @@ services:
       - 9600:9600 # Performance Analyzer
 
   opensearch-node2:
-    image: mailchimp-opensearch-node1:latest # This should be the same image used for opensearch-node1 to avoid issues
+    build:
+      context: ./container/opensearch # This should be the same image used for opensearch-node1 to avoid issues
     container_name: opensearch-node2
     environment:
       - cluster.name=opensearch-cluster
